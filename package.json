@@ -1,0 +1,35 @@
+{
+  "name": "mmm-social-counter",
+  "version": "1.0.0",
+  "description": "A social media follower/subscriber counter.",
+  "main": "MMM-social-counter.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngnijland/MMM-social-counter.git"
+  },
+  "keywords": [
+    "social",
+    "counter",
+    "followers",
+    "subscribers",
+    "follow",
+    "subscribe",
+    "twitter",
+    "youtube"
+  ],
+  "author": "Niek Nijland <ngnijland@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngnijland/MMM-social-counter/issues"
+  },
+  "homepage": "https://github.com/ngnijland/MMM-social-counter#readme",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "prettier": "^2.0.5"
+  }
+}
