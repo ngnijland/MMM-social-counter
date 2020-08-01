@@ -11,10 +11,52 @@ Module.register('MMM-social-counter', {
   start: function () {
     Log.info(`Starting module: ${this.name}`);
 
-    this.updateDom();
+    this.status = 'LOADING';
+    this.error;
+
+    this.twitter = this.config.twitter;
+
+    if (typeof this.twitter === 'undefined') {
+      this.status = 'ERROR';
+      this.error = 'Configuration error: No configurations found for twitter.';
+
+      return;
+    }
+
+    if (typeof this.twitter.accessToken !== 'string') {
+      this.status = 'ERROR';
+      this.error =
+        'Configuration error: No twitter accessToken set in configuration.';
+
+      return;
+    }
+
+    if (typeof this.twitter.accessTokenSecret !== 'string') {
+      this.status = 'ERROR';
+      this.error =
+        'Configuration error: No twitter accessTokenSecret set in configuration.';
+
+      return;
+    }
   },
 
   getDom: function () {
+    if (this.status === 'LOADING') {
+      const title = document.createElement('h1');
+      title.textContent = 'Loading...';
+
+      return title;
+    }
+
+    if (this.status === 'ERROR') {
+      Log.error(this.error);
+
+      const title = document.createElement('h1');
+      title.textContent = this.error;
+
+      return title;
+    }
+
     const title = document.createElement('h1');
     title.textContent = 'Hello world';
 
