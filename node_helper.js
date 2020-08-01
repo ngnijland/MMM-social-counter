@@ -13,6 +13,10 @@ module.exports = NodeHelper.create({
         this.twitterAuthenticate(payload);
         break;
       }
+      case 'TWITTER_GET_FOLLOWERS_COUNT': {
+        this.twitterGetFollowers(payload);
+        break;
+      }
       default: {
         this.sendSocketNotification(
           'ERROR',
@@ -76,5 +80,43 @@ module.exports = NodeHelper.create({
     );
 
     req.end();
+  },
+
+  twitterGetFollowers: function (username) {
+    https
+      .get(
+        `https://api.twitter.com/1.1/users/show.json?screen_name=${username}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.jwt}`,
+          },
+        },
+        (res) => {
+          let data = '';
+
+          res.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          res.on('end', () => {
+            const response = JSON.parse(data);
+
+            if (typeof response.errors === 'undefined') {
+              this.sendSocketNotification(
+                'TWITTER_FOLLOWERS_COUNT',
+                response.followers_count
+              );
+            } else {
+              this.sendSocketNotification(
+                'ERROR',
+                `Code: ${code}, message: ${message}`
+              );
+            }
+          });
+        }
+      )
+      .on('error', (error) => {
+        this.sendSocketNotification('ERROR', error.message);
+      });
   },
 });

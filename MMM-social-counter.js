@@ -8,13 +8,31 @@
  */
 
 Module.register('MMM-social-counter', {
+  defaults: {
+    updatesEvery: 1,
+  },
+
   start: function () {
     Log.info(`Starting module: ${this.name}`);
 
-    this.status = 'LOADING';
     this.error;
-
+    this.twitterFollowers;
+    this.status = 'LOADING';
+    this.interval;
     this.twitter = this.config.twitter;
+    this.updatesEvery = this.config.updatesEvery;
+
+    if (typeof this.updatesEvery !== 'number') {
+      Log.error(
+        `"${this.updatesEvery}" should be a number. Falling back to 1.`
+      );
+      this.updatesEvery = 1;
+    } else if (this.updatesEvery < 1) {
+      Log.error(
+        `"${this.updatesEvery}" should be higher than 1. Falling back to 1.`
+      );
+      this.updatesEvery = 1;
+    }
 
     if (typeof this.twitter === 'undefined') {
       this.status = 'ERROR';
@@ -39,6 +57,14 @@ Module.register('MMM-social-counter', {
       return;
     }
 
+    if (typeof this.twitter.username !== 'string') {
+      this.status = 'ERROR';
+      this.error =
+        'Configuration error: No twitter username set in configuration.';
+
+      return;
+    }
+
     this.sendSocketNotification('TWITTER_AUTHENTICATE', {
       accessToken: this.twitter.accessToken,
       accessTokenSecret: this.twitter.accessTokenSecret,
@@ -48,7 +74,13 @@ Module.register('MMM-social-counter', {
   socketNotificationReceived: function (notification, payload) {
     switch (notification) {
       case 'TWITTER_AUTHENTICATED': {
-        // TODO: make follower request
+        this.startInterval();
+        break;
+      }
+      case 'TWITTER_FOLLOWERS_COUNT': {
+        this.status = 'SUCCESS';
+        this.twitterFollowers = payload;
+        this.updateDom();
         break;
       }
       case 'ERROR': {
@@ -63,6 +95,17 @@ Module.register('MMM-social-counter', {
         this.updateDom();
       }
     }
+  },
+
+  startInterval: function () {
+    clearInterval(this.interval);
+
+    this.interval = setInterval(() => {
+      this.sendSocketNotification(
+        'TWITTER_GET_FOLLOWERS_COUNT',
+        this.twitter.username
+      );
+    }, this.updatesEvery * 1000);
   },
 
   getDom: function () {
@@ -83,7 +126,7 @@ Module.register('MMM-social-counter', {
     }
 
     const title = document.createElement('h1');
-    title.textContent = 'Hello world';
+    title.textContent = this.twitterFollowers;
 
     return title;
   },
