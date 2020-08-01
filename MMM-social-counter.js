@@ -38,6 +38,31 @@ Module.register('MMM-social-counter', {
 
       return;
     }
+
+    this.sendSocketNotification('TWITTER_AUTHENTICATE', {
+      accessToken: this.twitter.accessToken,
+      accessTokenSecret: this.twitter.accessTokenSecret,
+    });
+  },
+
+  socketNotificationReceived: function (notification, payload) {
+    switch (notification) {
+      case 'TWITTER_AUTHENTICATED': {
+        // TODO: make follower request
+        break;
+      }
+      case 'ERROR': {
+        this.status = 'ERROR';
+        this.error = payload;
+        this.updateDom();
+        break;
+      }
+      default: {
+        this.status = 'ERROR';
+        this.error = `Unknown notification ${notification} received by node_helper. Please submit and issue in the MMM-social-counter repository.`;
+        this.updateDom();
+      }
+    }
   },
 
   getDom: function () {
