@@ -9,7 +9,7 @@
 
 Module.register('MMM-social-counter', {
   defaults: {
-    updatesEvery: 1,
+    updatesEvery: 10,
   },
 
   start: function () {
