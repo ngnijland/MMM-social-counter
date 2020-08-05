@@ -107,6 +107,11 @@ Module.register('MMM-social-counter', {
   startInterval: function () {
     clearInterval(this.interval);
 
+    this.sendSocketNotification(
+      'TWITTER_GET_FOLLOWERS_COUNT',
+      this.twitter.username
+    );
+
     this.interval = setInterval(() => {
       this.sendSocketNotification(
         'TWITTER_GET_FOLLOWERS_COUNT',
