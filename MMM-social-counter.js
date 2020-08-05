@@ -83,6 +83,13 @@ Module.register('MMM-social-counter', {
         this.updateDom();
         break;
       }
+      case 'TWITTER_TOKEN_INVALID_OR_EXPIRED': {
+        this.sendSocketNotification('TWITTER_AUTHENTICATE', {
+          accessToken: this.twitter.accessToken,
+          accessTokenSecret: this.twitter.accessTokenSecret,
+        });
+        break;
+      }
       case 'ERROR': {
         this.status = 'ERROR';
         this.error = payload;

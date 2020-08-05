@@ -107,10 +107,16 @@ module.exports = NodeHelper.create({
                 response.followers_count
               );
             } else {
-              this.sendSocketNotification(
-                'ERROR',
-                `Code: ${code}, message: ${message}`
-              );
+              const { code, message } = response.errors[0];
+
+              if (code === 89) {
+                this.sendSocketNotification('TWITTER_TOKEN_INVALID_OR_EXPIRED');
+              } else {
+                this.sendSocketNotification(
+                  'ERROR',
+                  `Code: ${code}, message: ${message}`
+                );
+              }
             }
           });
         }
