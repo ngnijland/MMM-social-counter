@@ -24,12 +24,12 @@ Module.register('MMM-social-counter', {
 
     if (typeof this.updatesEvery !== 'number') {
       Log.error(
-        `"${this.updatesEvery}" should be a number. Falling back to 1.`
+        `Configuration error: "updatesEvery" should be a number, but is: "${this.updatesEvery}". Falling back to 1.`
       );
       this.updatesEvery = 1;
     } else if (this.updatesEvery < 1) {
       Log.error(
-        `"${this.updatesEvery}" should be higher than 1. Falling back to 1.`
+        `Configuration error: "updatesEvery" should be higher than 1, but is: "${this.updatesEvery}". Falling back to 1.`
       );
       this.updatesEvery = 1;
     }
@@ -91,7 +91,7 @@ Module.register('MMM-social-counter', {
       }
       default: {
         this.status = 'ERROR';
-        this.error = `Unknown notification ${notification} received by node_helper. Please submit and issue in the MMM-social-counter repository.`;
+        this.error = `Socket notivication error: Unknown notification "${notification}" received from node_helper. Please submit an issue in the MMM-social-counter repository.`;
         this.updateDom();
       }
     }

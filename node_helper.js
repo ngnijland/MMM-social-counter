@@ -20,7 +20,7 @@ module.exports = NodeHelper.create({
       default: {
         this.sendSocketNotification(
           'ERROR',
-          `Unknown notification ${notification} received by node_helper. Please submit and issue in the MMM-social-counter repository.`
+          `Socket notification error: Unknown notification "${notification}" received from module. Please submit an issue in the MMM-social-counter repository.`
         );
       }
     }
@@ -57,7 +57,7 @@ module.exports = NodeHelper.create({
               if (code === 99) {
                 this.sendSocketNotification(
                   'ERROR',
-                  'Looks like your credentials are invalid, please check if your twitter acces tokens in the config file are correct.'
+                  'Authentication error: Looks like your twitter credentials are invalid, please check your acces tokens in the config file.'
                 );
               } else {
                 this.sendSocketNotification(
