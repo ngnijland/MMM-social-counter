@@ -10,6 +10,7 @@
 Module.register('MMM-social-counter', {
   defaults: {
     updatesEvery: 10,
+    size: 'medium',
   },
 
   start: function () {
@@ -21,6 +22,7 @@ Module.register('MMM-social-counter', {
     this.interval;
     this.twitter = this.config.twitter;
     this.updatesEvery = this.config.updatesEvery;
+    this.size = this.config.size;
 
     if (typeof this.updatesEvery !== 'number') {
       Log.error(
@@ -32,6 +34,17 @@ Module.register('MMM-social-counter', {
         `Configuration error: "updatesEvery" should be higher than 1, but is: "${this.updatesEvery}". Falling back to 1.`
       );
       this.updatesEvery = 1;
+    }
+
+    if (
+      this.size !== 'small' &&
+      this.size !== 'medium' &&
+      this.size !== 'large'
+    ) {
+      Log.error(
+        `"${this.size}" is not a supported value. Please use "small", "medium" or "large". Falling back to "medium".`
+      );
+      this.size = 'medium';
     }
 
     if (typeof this.twitter === 'undefined') {
@@ -121,8 +134,36 @@ Module.register('MMM-social-counter', {
   },
 
   getDom: function () {
+    const container = document.createElement('div');
+    container.classList.add('container');
+
+    const icon = document.createElement('img');
+    icon.classList.add('icon');
+    icon.src = this.file('static/icons/twitter.svg');
+
+    const title = document.createElement('h1');
+    title.classList.add(this.size);
+    title.classList.add('bright');
+
+    let iconSize;
+
+    switch (this.size) {
+      case 'small': {
+        iconSize = '32px';
+        break;
+      }
+      case 'large': {
+        iconSize = '100px';
+        break;
+      }
+      default: {
+        iconSize = '46px';
+      }
+    }
+
+    icon.style.height = iconSize;
+
     if (this.status === 'LOADING') {
-      const title = document.createElement('h1');
       title.textContent = 'Loading...';
 
       return title;
@@ -131,15 +172,20 @@ Module.register('MMM-social-counter', {
     if (this.status === 'ERROR') {
       Log.error(this.error);
 
-      const title = document.createElement('h1');
       title.textContent = this.error;
 
       return title;
     }
 
-    const title = document.createElement('h1');
     title.textContent = this.twitterFollowers;
 
-    return title;
+    container.appendChild(icon);
+    container.appendChild(title);
+
+    return container;
+  },
+
+  getStyles: function () {
+    return [this.file('css/MMM-social-counter.css')];
   },
 });
