@@ -1,14 +1,13 @@
-.MMM-social-counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
+.wrapper {
   display: flex;
   align-items: center;
 }
 
 .icon {
+  margin-left: -7px;
   fill: white;
+}
+
+.text {
+  margin: 0;
 }

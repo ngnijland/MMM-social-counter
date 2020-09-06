@@ -23,6 +23,7 @@ Module.register('MMM-social-counter', {
     this.twitter = this.config.twitter;
     this.updatesEvery = this.config.updatesEvery;
     this.size = this.config.size;
+    this.position = this.data.position;
 
     if (typeof this.updatesEvery !== 'number') {
       Log.error(
@@ -134,16 +135,29 @@ Module.register('MMM-social-counter', {
   },
 
   getDom: function () {
-    const container = document.createElement('div');
-    container.classList.add('container');
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+
+    let justifyContent;
+
+    if (this.position.includes('right')) {
+      justifyContent = 'flex-end';
+    } else if (this.position.includes('center')) {
+      justifyContent = 'center';
+    } else {
+      justifyContent = 'flex-start';
+    }
+
+    wrapper.style.justifyContent = justifyContent;
 
     const icon = document.createElement('img');
     icon.classList.add('icon');
     icon.src = this.file('static/icons/twitter.svg');
 
-    const title = document.createElement('h1');
-    title.classList.add(this.size);
-    title.classList.add('bright');
+    const text = document.createElement('span');
+    text.classList.add(this.size);
+    text.classList.add('bright');
+    text.classList.add('text');
 
     let iconSize;
 
@@ -164,25 +178,25 @@ Module.register('MMM-social-counter', {
     icon.style.height = iconSize;
 
     if (this.status === 'LOADING') {
-      title.textContent = 'Loading...';
+      text.textContent = 'Loading...';
 
-      return title;
+      return text;
     }
 
     if (this.status === 'ERROR') {
       Log.error(this.error);
 
-      title.textContent = this.error;
+      text.textContent = this.error;
 
-      return title;
+      return text;
     }
 
-    title.textContent = this.twitterFollowers;
+    text.textContent = this.twitterFollowers;
 
-    container.appendChild(icon);
-    container.appendChild(title);
+    wrapper.appendChild(icon);
+    wrapper.appendChild(text);
 
-    return container;
+    return wrapper;
   },
 
   getStyles: function () {
