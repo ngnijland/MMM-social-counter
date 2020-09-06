@@ -81,13 +81,3 @@ Config                | Type                       | Default value | Description
 :---------------------|:---------------------------|:--------------|:------------
 `size`                | `small \| medium \| large` | `medium`      | The size of the counter
 `updatesEvery`        | `number`                   | `10`          | The amount of seconds between each follower count update
-
-## Todo
-- [x] Code twitter follower counter
-- [x] Make styling work for every position available in MagicMirror software
-- [x] Add installation guide, description and configuration guide to README
-- [x] Add screenshots to README
-- [ ] Add module to third party module list of MagicMirror
-- [x] Add contribution guide
-- [ ] Add username configuration
-- [ ] Add youtube follower counter
