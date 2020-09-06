@@ -1,11 +1,93 @@
 # MMM-social-counter
 
+This MagicMirror module is a twitter follower counter.
+
+![Screenshot of module](https://github.com/ngnijland/MMM-social-counter/raw/master/screenshots/MMM-social-counter-screenshot.png)
+
+## Installation
+
+1. Go to the MagicMirror modules folder
+
+```bash
+cd ~/MagicMirror/modules
+```
+
+2. Clone this repository
+
+```bash
+git clone https://github.com/ngnijland/MMM-social-counter.git
+```
+
+3. Add the this module to the modules array in the MagicMirror `config/config.js` file, like this:
+
+```javascript
+modules: [
+  {
+    module: "MMM-social-counter",
+    position: "middle_center"
+  }
+]
+```
+
+## Twitter
+
+To show the follower count of a Twitter user you need an app in the Twitter Developer Portal.
+
+1. Go to: https://developer.twitter.com/
+
+2. Log into your Twitter account
+
+3. Go to the apps overview in the `Developer Portal` (https://developer.twitter.com/en/portal/projects-and-apps)
+
+4. Create a new app
+
+5. Add the `API key` and `API key secret` to the config of this module as follows:
+
+```javascript
+modules: [
+  {
+    module: "MMM-social-counter",
+    position: "middle_center",
+    config: {
+      twitter: {
+        apiKey: '<YOUR API KEY>',
+        apiKeySecret: '<YOUR API KEY SECRET>',
+        username: '<TWITTER USERNAME TO SHOW FOLLOWER COUNT OF>'
+      }
+    }
+  }
+]
+```
+
+## Configuration
+
+Configure this module in your MagicMirror config file which is located at `config/config.js` in the MagicMirror repository. An example config for this module:
+
+```javascript
+modules: [
+  {
+    module: "MMM-social-counter",
+    position: "middle_center",
+    config: {
+      // Options
+    }
+  }
+]
+```
+
+The following configurations are available:
+
+Config                | Type                       | Default value | Description
+:---------------------|:---------------------------|:--------------|:------------
+`size`                | `small \| medium \| large` | `medium`      | The size of the counter
+`updatesEvery`        | `number`                   | `10`          | The amount of seconds between each follower count update
+
 ## Todo
 - [x] Code twitter follower counter
 - [x] Make styling work for every position available in MagicMirror software
-- [ ] Add installation guide, description and configuration guide to README
-- [ ] Add screenshots to README
+- [x] Add installation guide, description and configuration guide to README
+- [x] Add screenshots to README
 - [ ] Add module to third party module list of MagicMirror
-- [ ] Add contribution guide
+- [x] Add contribution guide
 - [ ] Add username configuration
 - [ ] Add youtube follower counter
