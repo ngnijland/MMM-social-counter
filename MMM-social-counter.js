@@ -55,18 +55,18 @@ Module.register('MMM-social-counter', {
       return;
     }
 
-    if (typeof this.twitter.accessToken !== 'string') {
+    if (typeof this.twitter.apiKey !== 'string') {
       this.status = 'ERROR';
       this.error =
-        'Configuration error: No twitter accessToken set in configuration.';
+        'Configuration error: No twitter apiKey set in configuration.';
 
       return;
     }
 
-    if (typeof this.twitter.accessTokenSecret !== 'string') {
+    if (typeof this.twitter.apiKeySecret !== 'string') {
       this.status = 'ERROR';
       this.error =
-        'Configuration error: No twitter accessTokenSecret set in configuration.';
+        'Configuration error: No twitter apiKeySecret set in configuration.';
 
       return;
     }
@@ -80,8 +80,8 @@ Module.register('MMM-social-counter', {
     }
 
     this.sendSocketNotification('TWITTER_AUTHENTICATE', {
-      accessToken: this.twitter.accessToken,
-      accessTokenSecret: this.twitter.accessTokenSecret,
+      apiKey: this.twitter.apiKey,
+      apiKeySecret: this.twitter.apiKeySecret,
     });
   },
 
@@ -99,8 +99,8 @@ Module.register('MMM-social-counter', {
       }
       case 'TWITTER_TOKEN_INVALID_OR_EXPIRED': {
         this.sendSocketNotification('TWITTER_AUTHENTICATE', {
-          accessToken: this.twitter.accessToken,
-          accessTokenSecret: this.twitter.accessTokenSecret,
+          apiKey: this.twitter.apiKey,
+          apiKeySecret: this.twitter.apiKeySecret,
         });
         break;
       }
