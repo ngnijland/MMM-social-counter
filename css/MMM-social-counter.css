@@ -1,21 +1,21 @@
-.wrapper {
+.MMM-social-counter .wrapper {
   display: flex;
   align-items: center;
 }
 
-.icon {
+.MMM-social-counter .icon {
   margin-right: 8px;
   color: white;
 }
 
-.wrapper.small .icon {
+.MMM-social-counter .wrapper.small .icon {
   margin-right: 4px;
 }
 
-.wrapper.large .icon {
+.MMM-social-counter .wrapper.large .icon {
   margin-right: 16px;
 }
 
-.text {
+.MMM-social-counter .text {
   margin: 0;
 }
