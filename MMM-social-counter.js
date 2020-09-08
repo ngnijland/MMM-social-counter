@@ -136,7 +136,7 @@ Module.register('MMM-social-counter', {
 
   getDom: function () {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('wrapper');
+    wrapper.className = `wrapper ${this.size}`;
 
     let justifyContent;
 
@@ -150,32 +150,9 @@ Module.register('MMM-social-counter', {
 
     wrapper.style.justifyContent = justifyContent;
 
-    const icon = document.createElement('img');
-    icon.classList.add('icon');
-    icon.src = this.file('static/icons/twitter.svg');
-
     const text = document.createElement('span');
-    text.classList.add(this.size);
     text.classList.add('bright');
     text.classList.add('text');
-
-    let iconSize;
-
-    switch (this.size) {
-      case 'small': {
-        iconSize = '32px';
-        break;
-      }
-      case 'large': {
-        iconSize = '100px';
-        break;
-      }
-      default: {
-        iconSize = '46px';
-      }
-    }
-
-    icon.style.height = iconSize;
 
     if (this.status === 'LOADING') {
       text.textContent = 'Loading...';
@@ -190,6 +167,9 @@ Module.register('MMM-social-counter', {
 
       return text;
     }
+
+    const icon = document.createElement('i');
+    icon.className = 'fa fa-twitter icon';
 
     text.textContent = this.twitterFollowers;
 

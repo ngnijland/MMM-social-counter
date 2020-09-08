@@ -4,8 +4,16 @@
 }
 
 .icon {
-  margin-left: -7px;
-  fill: white;
+  margin-right: 8px;
+  color: white;
+}
+
+.wrapper.small .icon {
+  margin-right: 4px;
+}
+
+.wrapper.large .icon {
+  margin-right: 16px;
 }
 
 .text {
