@@ -85,8 +85,9 @@ module.exports = NodeHelper.create({
   twitterGetFollowers: function (username) {
     https
       .get(
-        `https://api.twitter.com/1.1/users/show.json?screen_name=${username}`,
         {
+          hostname: 'api.twitter.com',
+          path: `/1.1/users/show.json?screen_name=${username}`,
           headers: {
             Authorization: `Bearer ${this.jwt}`,
           },
