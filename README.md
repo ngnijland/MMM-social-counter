@@ -18,7 +18,7 @@ cd ~/MagicMirror/modules
 git clone https://github.com/ngnijland/MMM-social-counter.git
 ```
 
-3. Add the this module to the modules array in the MagicMirror `config/config.js` file, like this:
+3. Add this module to the modules array in the MagicMirror `config/config.js` file, like this:
 
 ```javascript
 modules: [
@@ -80,4 +80,5 @@ The following configurations are available:
 Config                | Type                       | Default value | Description
 :---------------------|:---------------------------|:--------------|:------------
 `size`                | `small \| medium \| large` | `medium`      | The size of the counter
-`updatesEvery`        | `number`                   | `10`          | The amount of seconds between each follower count update
+`icon`                | `string`                   | `fa-twitter`  | The name of the font (from FontAwesome) to use as the icon next to the follower count, e.g. fa-twitter-square
+`updatesEvery`        | `number`                   | `10`          | The number of seconds between each follower count update

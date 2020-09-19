@@ -11,6 +11,7 @@ Module.register('MMM-social-counter', {
   defaults: {
     updatesEvery: 10,
     size: 'medium',
+    icon: 'fa-twitter',
   },
 
   start: function () {
@@ -23,6 +24,7 @@ Module.register('MMM-social-counter', {
     this.twitter = this.config.twitter;
     this.updatesEvery = this.config.updatesEvery;
     this.size = this.config.size;
+    this.icon = this.config.icon;
     this.position = this.data.position;
 
     if (typeof this.updatesEvery !== 'number') {
@@ -169,7 +171,7 @@ Module.register('MMM-social-counter', {
     }
 
     const icon = document.createElement('i');
-    icon.className = 'fa fa-twitter icon';
+    icon.className = 'fa ' + this.icon + ' icon';
 
     text.textContent = this.twitterFollowers;
 

@@ -57,7 +57,7 @@ module.exports = NodeHelper.create({
               if (code === 99) {
                 this.sendSocketNotification(
                   'ERROR',
-                  'Authentication error: Looks like your twitter credentials are invalid, please check your acces tokens in the config file.'
+                  'Authentication error: Looks like your twitter credentials are invalid, please check your access tokens in the config file.'
                 );
               } else {
                 this.sendSocketNotification(
