@@ -80,5 +80,5 @@ The following configurations are available:
 Config                | Type                       | Default value | Description
 :---------------------|:---------------------------|:--------------|:------------
 `size`                | `small \| medium \| large` | `medium`      | The size of the counter
-`icon`                | `string                    | `fa-twitter`  | The font name (from FontAwesome) to display next to the follower count, e.g. fa-twitter-square
+`icon`                | `string`                   | `fa-twitter`  | The name of the font (from FontAwesome) to use as the icon next to the follower count, e.g. fa-twitter-square
 `updatesEvery`        | `number`                   | `10`          | The number of seconds between each follower count update
